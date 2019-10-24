@@ -2,15 +2,13 @@
 # -*- coding: utf-8 -*-
 """
 Tello driver node
-
-Read the docs: (TODO) tello_driver_doc.md
 """
 
 import rospy
 from std_msgs.msg import Empty, String, Bool
 from geometry_msgs.msg import Twist
 from sensor_msgs.msg import Image
-from mission_control.srv import Takeoff, TakeoffResponse
+from tello_driver.srv import Takeoff, TakeoffResponse
 from cv_bridge import CvBridge
 
 import numpy as np

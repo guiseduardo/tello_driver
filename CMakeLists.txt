@@ -109,7 +109,7 @@ generate_messages(
 catkin_package(
 #  INCLUDE_DIRS include
 #  LIBRARIES tello_driver
-#  CATKIN_DEPENDS geometry_msgs roscpp rospy sensor_msgs std_msgs
+  CATKIN_DEPENDS geometry_msgs rospy sensor_msgs std_msgs message_runtime
 #  DEPENDS system_lib
 )
 

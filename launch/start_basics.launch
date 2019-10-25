@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 
 <launch>
-    <node name="tello_driver" pkg="tello_driver" type="tello_driver.py" output="screen"/>	        
+    <node name="tello_driver" pkg="tello_driver" type="tello_driver_node.py" output="screen"/>	        
     <node name="teleop_gamepad" pkg="tello_driver" type="teleop_gamepad.py" output="screen"/>
     <node name="joystick" pkg="joy" type="joy_node" args="~autorepeat_rate 50"/>
 </launch>

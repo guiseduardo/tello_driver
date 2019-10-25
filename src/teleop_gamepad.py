@@ -40,6 +40,7 @@ def get_frame(msg):
     global frame
     global cv_bridge
     global drone_state
+    global override
 
     try:
         frame = cv_bridge.imgmsg_to_cv2(msg, 'bgr8')
@@ -51,10 +52,16 @@ def get_frame(msg):
                         drone_state['h'], drone_state['bat'], drone_state['templ'], drone_state['temph'])
             else:
                 text = "NO SENSOR DATA"
-                
+
+            if override:
+                state = "MANUAL"
+            else:
+                state = "AUTO"
+
             cv2.putText(hud, text, (5, frame.shape[0] - 15), cv2.FONT_HERSHEY_SIMPLEX, 1.0, (255,255,255), 2)
+            cv2.putText(hud, state, (frame.shape[1] - 130, frame.shape[0] - 15), cv2.FONT_HERSHEY_SIMPLEX, 1.0, (40,255,0), 2)
             cv2.imshow('FPV', hud); cv2.waitKey(1);
-            
+
     except CvBridgeError as e:
         print(e)
 
@@ -81,6 +88,7 @@ def gamepad_handler(msg):
     if msg.buttons[4]: # LB, override
         if not override:
             override_set.publish(Bool(data=True))
+            print("[INFO] Setting control to MANUAL")
         override = True
 
     if msg.buttons[5]: # RB, automatic
@@ -88,6 +96,7 @@ def gamepad_handler(msg):
         override_out.publish(vel_twist)
         if override:
             override_set.publish(Bool(data=False))
+            print("[INFO] Setting control to AUTO")
         override = False
         return
 
